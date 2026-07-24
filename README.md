@@ -4,7 +4,7 @@ Sistema de gestión logística para la distribución de componentes sanguíneos 
 
 ## Integrantes
 - Jiménez Mendoza Eduardo
-- Huvera Hernandez Azael
+- Uvera Hernandez Azael
 
 ## Descripción de la problematica
  La ineficiencia en la comunicación y el seguimiento de inventario de unidades de sangre entre instituciones de salud(Hospitales-bancos de sangre), con una respuesta muy lenta ante situaciones críticas de desabastecimiento.
