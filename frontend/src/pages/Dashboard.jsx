@@ -1,74 +1,88 @@
-//import { useState } from "react";
-import { 
-  LayoutDashboard, FlaskConical, Building2, ClipboardList, 
-  TriangleAlert, Users, Search, Bell, ChevronRight, TrendingUp, TrendingDown 
+import {
+  LayoutDashboard, FlaskConical, Building2, ClipboardList,
+  TriangleAlert, Users, ChevronRight,
+  Droplets, LogOut, TrendingUp, TrendingDown
 } from "lucide-react";
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, 
-  ResponsiveContainer, ReferenceLine, Cell 
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid,
+  Tooltip, ResponsiveContainer, Cell,
 } from "recharts";
 
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from 'axios';
+
+// --- INSTANCIA DE AXIOS CONFIGURADA ---
+// Asegúrate de que este puerto coincida con el que usa tu Laravel (usualmente 8000)
+const api = axios.create({
+  baseURL: 'http://localhost:8000/api', 
+  withCredentials: true,
+});
 
 const CHART_DATA = [
-  { type: "O+", disponible: 320 },
-  { type: "O-", disponible: 42 },
-  { type: "A+", disponible: 285 },
-  { type: "A-", disponible: 98 },
-  { type: "B+", disponible: 210 },
-  { type: "B-", disponible: 65 },
-  { type: "AB+", disponible: 145 },
-  { type: "AB-", disponible: 33 },
+  { type: "O+", disponible: 320 }, { type: "O-", disponible: 42 },
+  { type: "A+", disponible: 285 }, { type: "A-", disponible: 98 },
+  { type: "B+", disponible: 210 }, { type: "B-", disponible: 65 },
+  { type: "AB+", disponible: 145 }, { type: "AB-", disponible: 33 },
 ];
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = async () => {
+    try {
+      await api.post('/logout');
+      localStorage.removeItem('token');
+      navigate('/login');
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      localStorage.removeItem('token');
+      navigate('/login');
+    }
+  };
+
+  const isActive = (path) => location.pathname === path;
+
   return (
     <div className="flex h-screen bg-[#F2F4F8] font-sans">
-      
       {/* SIDEBAR */}
       <aside className="w-64 bg-[#1B2333] text-white flex flex-col">
-        <div className="p-6">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="bg-red-600 p-2 rounded-lg">🩸</div>
-            <div>
-              <div className="font-bold">Red Vital</div>
-              <div className="text-[10px] text-gray-400 uppercase tracking-widest">Coordinación Hemática</div>
+        <div className="p-6 flex flex-col h-full">
+          <div className="flex items-center gap-3 mb-20">
+            <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#c5111b]">
+              <Droplets className="text-white" size={24} />
             </div>
-          </div>
-          
-          <div className="mb-6 bg-[#0f1420] p-3 rounded-xl border border-white/5">
-            <div className="text-[10px] text-red-500 font-bold uppercase">Admin</div>
-            <div className="text-xs">Administrador</div>
+            <div>
+              <h1 className="font-bold text-lg">Red Vital</h1>
+              <p className="text-[10px] uppercase tracking-widest text-slate-400">Coordinación Hemática</p>
+            </div>
           </div>
 
           <nav className="space-y-1">
-            <NavItem icon={<LayoutDashboard size={18}/>} label="Dashboard" active />
-            <NavItem icon={<FlaskConical size={18}/>} label="Gestión de Inventario" />
-            <NavItem icon={<Building2 size={18}/>} label="Red de Hospitales" />
-            <NavItem icon={<ClipboardList size={18}/>} label="Bandeja de Solicitudes" badge="2" />
-            <NavItem icon={<TriangleAlert size={18}/>} label="Alertas de Escasez" badge="3" />
+            {/* Rutas configuradas según App.jsx */}
+            <NavItem icon={<LayoutDashboard size={18} />} label="Dashboard" onClick={() => navigate('/dashboard')} active={isActive('/dashboard')} />
+            <NavItem icon={<FlaskConical size={18} />} label="Gestión de Inventario" onClick={() => navigate('/inventory')} active={isActive('/inventory')} />
+            <NavItem icon={<Building2 size={18} />} label="Red de Hospitales" onClick={() => navigate('/hospitals')} active={isActive('/hospitals')} />
+            <NavItem icon={<ClipboardList size={18} />} label="Bandeja de Solicitudes" badge="2" />
+            <NavItem icon={<TriangleAlert size={18} />} label="Alertas de Escasez" badge="3" />
           </nav>
-        </div>
-        
-        <div className="mt-auto p-6 border-t border-white/10">
-          <NavItem icon={<Users size={18}/>} label="Gestión de Usuarios" />
+
+          <div className="mt-auto border-t border-white/10 pt-6 space-y-1">
+            <NavItem icon={<Users size={18} />} label="Gestión de Usuarios" />
+            <NavItem icon={<LogOut size={18} />} label="Cerrar Sesión" onClick={handleLogout} />
+          </div>
         </div>
       </aside>
 
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        
-        {/* TOPBAR */}
         <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8">
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span>Red Vital</span> <ChevronRight size={14}/> <span className="font-bold text-gray-900">Dashboard</span>
+            <span>Red Vital</span> <ChevronRight size={14} /> 
+            <span className="font-bold text-gray-900">Dashboard</span>
           </div>
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
-              <input type="text" placeholder="Buscar en Red Vital..." className="pl-9 pr-4 py-2 bg-gray-100 rounded-lg text-sm outline-none w-64" />
-            </div>
-            <div className="bg-gray-200 p-2 rounded-lg"><Bell size={18} /></div>
-            <div className="flex items-center gap-2">
+             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-[#1B2333] text-white flex items-center justify-center text-xs font-bold">MA</div>
               <div className="text-sm">
                 <div className="font-bold">Mónica Alcántara</div>
@@ -78,20 +92,17 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* CONTENT */}
         <main className="p-8 overflow-y-auto">
           <h1 className="text-2xl font-bold mb-1">Dashboard</h1>
-          <p className="text-gray-500 text-sm mb-6">Resumen operativo · Red Vital · domingo, 12 de julio</p>
+          <p className="text-gray-500 text-sm mb-6">Resumen operativo · Red Vital</p>
 
-          {/* KPI CARDS */}
           <div className="grid grid-cols-4 gap-6 mb-8">
-            <KpiCard title="UNIDADES DISPONIBLES" value="17" trend="+4.2% vs. semana anterior" up={true} />
-            <KpiCard title="SOLICITUDES URGENTES" value="1" trend="activas requieren atención" up={true} color="text-red-600" />
-            <KpiCard title="ALERTAS DE CADUCIDAD" value="11" trend="≤7 días ventana crítica" up={false} />
-            <KpiCard title="HOSPITALES EN RED" value="7" trend="100% todos conectados" up={true} />
+            <KpiCard title="UNIDADES DISPONIBLES" value="17" trend="+4.2%" up={true} />
+            <KpiCard title="SOLICITUDES URGENTES" value="1" trend="atención requerida" up={true} color="text-red-600" />
+            <KpiCard title="ALERTAS DE CADUCIDAD" value="11" trend="ventana crítica" up={false} />
+            <KpiCard title="HOSPITALES EN RED" value="7" trend="conectados" up={true} />
           </div>
 
-          {/* CHART */}
           <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
             <h3 className="font-bold mb-6">Disponibilidad por Tipo de Sangre</h3>
             <ResponsiveContainer width="100%" height={300}>
@@ -100,7 +111,6 @@ export default function Dashboard() {
                 <XAxis dataKey="type" axisLine={false} tickLine={false} />
                 <YAxis axisLine={false} tickLine={false} />
                 <Tooltip />
-                <ReferenceLine y={80} stroke="red" strokeDasharray="3 3" />
                 <Bar dataKey="disponible" radius={[4, 4, 0, 0]}>
                   {CHART_DATA.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.disponible < 80 ? "#c5111b" : "#1B2333"} />
@@ -115,10 +125,15 @@ export default function Dashboard() {
   );
 }
 
-// Sub-componentes para limpiar el código
-const NavItem = ({ icon, label, active, badge }) => (
-  <button className={`w-full flex items-center gap-3 p-3 rounded-lg text-sm transition-colors ${active ? 'bg-red-900/30 text-white' : 'text-gray-400 hover:bg-gray-800'}`}>
-    {icon} {label} {badge && <span className="ml-auto bg-red-600 text-[10px] px-2 py-0.5 rounded-full">{badge}</span>}
+// Sub-componentes
+const NavItem = ({ icon, label, active, badge, onClick }) => (
+  <button
+    onClick={onClick}
+    className={`w-full flex items-center gap-3 p-3 rounded-lg text-sm transition-colors 
+    ${active ? "bg-[#c5111b] text-white" : "text-gray-400 hover:bg-gray-800 hover:text-white"}`}
+  >
+    {icon} {label}
+    {badge && <span className="ml-auto bg-red-600 text-[10px] px-2 py-0.5 rounded-full">{badge}</span>}
   </button>
 );
 

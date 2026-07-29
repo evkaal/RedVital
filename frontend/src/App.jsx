@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+// 1. IMPORTA TUS NUEVOS COMPONENTES AQUÍ
+import Inventory from './pages/Inventory'; 
+import Hospitals from './pages/Hospitals'; 
 
 function App() {
     return (
@@ -12,8 +15,13 @@ function App() {
                 {/* Rutas Públicas */}
                 <Route path="/login" element={<Login />} />
                 
-                {/* Rutas Protegidas (Aquí cargará tu dashboard) */}
-                <Route path="/dashboard" element={<Dashboard />} /><Route path="/dashboard" element={<Dashboard />} />
+                {/* Rutas Protegidas */}
+                <Route path="/dashboard" element={<Dashboard />} />
+                
+                {/* 2. AGREGA ESTAS LÍNEAS PARA TUS NUEVAS PÁGINAS */}
+                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/hospitals" element={<Hospitals />} />
+                
                 {/* Ruta 404 por si alguien escribe una página que no existe */}
                 <Route path="*" element={<Navigate to="/login" />} />
             </Routes>
