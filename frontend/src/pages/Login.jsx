@@ -41,10 +41,7 @@ export default function Login() {
             <br />
             Coordinación Hemática
           </h2>
-          <p className="text-slate-400 max-w-sm">
-            Gestión, solicitud y logística de unidades de sangre en tiempo real.
-            Eliminamos el desabastecimiento hospitalario.
-          </p>
+         
         </div>
 
         <div className="flex gap-12 border-t border-slate-700 pt-8">
