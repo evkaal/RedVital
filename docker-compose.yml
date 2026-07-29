@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: red_vital_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: red_vital
+      MYSQL_ROOT_PASSWORD: password123
+    ports:
+      - "3307:3306"
+    
