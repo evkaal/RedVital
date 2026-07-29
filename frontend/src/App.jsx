@@ -20,7 +20,8 @@ function App() {
                 
                 {/* 2. AGREGA ESTAS LÍNEAS PARA TUS NUEVAS PÁGINAS */}
                 <Route path="/inventory" element={<Inventory />} />
-                <Route path="/hospitals" element={<Hospitals />} />
+                <Route path="/Hospitals" element={<Hospitals />} />
+               { /*<Route path="/users" element={<UserManagement />} /> */}
                 
                 {/* Ruta 404 por si alguien escribe una página que no existe */}
                 <Route path="*" element={<Navigate to="/login" />} />
