@@ -10,7 +10,7 @@ import RequestQueue from './pages/Solicitud';
 
 function App() {
     return (
-       <BrowserRouter basename="/RedVital">
+       <BrowserRouter>
             <Routes>
                 {/* Redirección raíz al login */}
                 <Route path="/" element={<Navigate to="/login" />} />
