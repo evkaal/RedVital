@@ -68,7 +68,13 @@ export default function Dashboard() {
           </nav>
 
           <div className="mt-auto border-t border-white/10 pt-6 space-y-1">
-            <NavItem icon={<Users size={18} />} label="Gestión de Usuarios" />
+           {/* <NavItem icon={<Users size={18} />} label="Gestión de Usuarios" /> */}
+<NavItem 
+  icon={<Users size={18} />} 
+  label="Gestión de Usuarios" 
+  onClick={() => navigate('/users')} 
+  active={isActive('/users')} 
+/>
             <NavItem icon={<LogOut size={18} />} label="Cerrar Sesión" onClick={handleLogout} />
           </div>
         </div>

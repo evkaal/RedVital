@@ -4,10 +4,12 @@ import Dashboard from './pages/Dashboard';
 // 1. IMPORTA TUS NUEVOS COMPONENTES AQUÍ
 import Inventory from './pages/Inventory'; 
 import Hospitals from './pages/Hospitals'; 
+import UserManagement from './pages/UserManagement';
+
 
 function App() {
     return (
-        <BrowserRouter>
+       <BrowserRouter basename="/RedVital">
             <Routes>
                 {/* Redirección raíz al login */}
                 <Route path="/" element={<Navigate to="/login" />} />
@@ -17,11 +19,11 @@ function App() {
                 
                 {/* Rutas Protegidas */}
                 <Route path="/dashboard" element={<Dashboard />} />
-                
+               
                 {/* 2. AGREGA ESTAS LÍNEAS PARA TUS NUEVAS PÁGINAS */}
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/Hospitals" element={<Hospitals />} />
-               { /*<Route path="/users" element={<UserManagement />} /> */}
+               <Route path="/users" element={<UserManagement />} />
                 
                 {/* Ruta 404 por si alguien escribe una página que no existe */}
                 <Route path="*" element={<Navigate to="/login" />} />
