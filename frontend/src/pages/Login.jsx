@@ -71,7 +71,7 @@ export default function Login() {
           </div>
           <h2 className="text-4xl font-bold text-slate-900 mb-2">Red Vital</h2>
           <p className="text-slate-500 mb-8">
-            Ingrese sus credenciales para acceder.
+            Ingrese sus credenciales para acceder al Sistema.
           </p>
 
           {/* Selector de Rol */}
