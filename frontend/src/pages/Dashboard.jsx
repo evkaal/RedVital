@@ -63,7 +63,7 @@ export default function Dashboard() {
             <NavItem icon={<LayoutDashboard size={18} />} label="Dashboard" onClick={() => navigate('/dashboard')} active={isActive('/dashboard')} />
             <NavItem icon={<FlaskConical size={18} />} label="Gestión de Inventario" onClick={() => navigate('/inventory')} active={isActive('/inventory')} />
             <NavItem icon={<Building2 size={18} />} label="Red de Hospitales" onClick={() => navigate('/hospitals')} active={isActive('/hospitals')} />
-            <NavItem icon={<ClipboardList size={18} />} label="Bandeja de Solicitudes" badge="2" />
+            <NavItem icon={<ClipboardList size={18} />} label="Bandeja de Solicitudes" onClick={() => navigate('/solicitud')} active={isActive('/solicitud')} />
             <NavItem icon={<TriangleAlert size={18} />} label="Alertas de Escasez" badge="3" />
           </nav>
 

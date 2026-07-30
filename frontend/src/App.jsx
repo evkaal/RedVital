@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory'; 
 import Hospitals from './pages/Hospitals'; 
 import UserManagement from './pages/UserManagement';
+import RequestQueue from './pages/Solicitud';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/Hospitals" element={<Hospitals />} />
                <Route path="/users" element={<UserManagement />} />
+               <Route path="/Solicitud" element={<RequestQueue />} />
                 
                 {/* Ruta 404 por si alguien escribe una página que no existe */}
                 <Route path="*" element={<Navigate to="/login" />} />
