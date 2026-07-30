@@ -30,7 +30,7 @@ export default function Login() {
               <Droplets className="text-white" size={24} />
             </div>
             <div>
-              <h1 className="font-bold text-lg">Red Vital</h1>
+              <h1 className="font-bold text-lg">Proyecto Red Vital</h1>
               <p className="text-[10px] uppercase tracking-widest text-slate-400">
                 Coordinación Hemática
               </p>
